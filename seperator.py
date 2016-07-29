@@ -2571,5 +2571,10 @@ for log in list_of_logs:
                             mentions[author][word] += 1
 
 for author in mentions:
-    for every_mention in mentions[ author]:
-        print author + " talked to " + every_mention + ' '+ str(mentions[author][every_mention])  + ' times'
+    max = 0
+    mention = ''
+    for every_mention in mentions[author]:
+        if max < mentions[author][every_mention]:
+            max = mentions[author][every_mention]
+            mention = every_mention
+    print author + " talked to " + mention + ' '+ str(max)  + ' times'
