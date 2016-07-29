@@ -2496,7 +2496,7 @@ list_of_logs = [logs1, logs2, logs3, logs4]
 
 # Go through each log and search for all the nicks
 
-
+nicks = []
 for lines in list_of_logs:
     temp_mod_lines = lines.split('<')
 
@@ -2505,7 +2505,6 @@ for lines in list_of_logs:
     # in last challenge, instead of using a dictionary in this case
     # this time I am using a list to store the nicks as I will need to
     # refrence the nicks later on
-    nicks = []
 
     # Go through each line and append the nick
     # if it is not there in the list
@@ -2551,22 +2550,19 @@ for log in list_of_logs:
             author = line[line.find('<')+1:line.find('>')]
             words_in_line = line.split(' ')
             for word in words_in_line:
-                if word.find(',') != -1:
-                    word = word.strip(',')
-                elif word.find(':') != -1:
-                    word = word.strip(':')
+               word = word.replace(',','')
+               word = word.replace(':','')
 
-
-                #print final_word
-                if word in nicks:
-                    if mentions.get(author) == None:
+               if word in nicks:
+                    if mentions.get(str(author)) == None:
                         mentions[author] = {}
                         mentions[author][word] = 1
 
-
                     else:
-                        if mentions[author].get(word) ==None:
+                        if mentions[str(author)].get(word) == None:
                             mentions[author][word] = 1
+
+
                         else:
                             mentions[author][word] += 1
 
